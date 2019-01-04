@@ -1,3 +1,5 @@
 page-login {
-
+    ion-content {
+        background: map-get($colors, background ) !important;
+    }
 }
