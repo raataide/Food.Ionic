@@ -22,4 +22,8 @@ export class CategoriaPage {
     console.log('ionViewDidLoad CategoriaPage');
   }
 
+  abrirProduto(){
+    this.navCtrl.setRoot('TabsPage');
+  }
+
 }

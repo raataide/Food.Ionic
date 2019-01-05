@@ -22,4 +22,12 @@ export class TabsPage {
     console.log('ionViewDidLoad TabsPage');
   }
 
+  selecionarCategoria(event){    
+
+    let navH = event.linker._history[event.linker._history.length - 2]
+    if (event.tabTitle == 'Categorias' && navH != '/categoria'){
+      this.navCtrl.setRoot('CategoriaPage')
+    }
+  }
+
 }
