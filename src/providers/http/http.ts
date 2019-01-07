@@ -47,11 +47,14 @@ export class HttpProvider {
             this.spinner.Hide();
             if (err.status == 400) {
               let msg = '';
-              err.error.errors.forEach(_err => {
+              err.error.validation.forEach(_err => {
                 msg += `<li>${_err.message}</li>`;
               });
-              this.alert.showAlert('Informação',msg);
-            } else {
+              this.alert.showAlert(err.error.message,msg);
+            } else if (err.status == 404){
+              this.alert.showAlert('Atenção',err.error.message);
+            }
+            else {
               this.alert.showToast('Não foi possível realizar o processamento da informação, verifique sua conexão e tente novamente','bottom');              
             }
             resolve({success: false, data: undefined, err: err});
@@ -76,10 +79,10 @@ export class HttpProvider {
             this.spinner.Hide();
             if (err.status == 400) {
               let msg = '';
-              err.error.errors.forEach(_err => {
+              err.error.validation.forEach(_err => {
                 msg += `<li>${_err.message}</li>`;
               });
-              this.alert.showAlert('Informação',msg);
+              this.alert.showAlert(err.error.message,msg);
             } else {
               this.alert.showToast('Não foi possível realizar o processamento da informação, verifique sua conexão e tente novamente','bottom');              
             }
