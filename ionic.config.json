@@ -1,5 +1,7 @@
 {
   "name": "Food.Ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
