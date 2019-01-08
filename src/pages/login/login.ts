@@ -23,11 +23,14 @@ export class LoginPage {
   }
 
   async login():Promise<void>{
-    let result = await this.usuario.autenticar(this.form.email, this.form.email);
-    console.log(result);
+    let result = await this.usuario.autenticar(this.form.email, this.form.senha);
     if (result.success){
       console.log('logar');
     }
+  }
+
+  cadastre(){
+    this.navCtrl.setRoot('CadastroPage');
   }
 
 }

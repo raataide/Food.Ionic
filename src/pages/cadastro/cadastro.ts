@@ -1,12 +1,8 @@
+import { AlertProvider } from './../../providers/alert/alert';
+import { UsuarioProvider } from './../../providers/usuario/usuario';
+import { UsuarioModel } from './../../app/models/usuarioModel';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CadastroPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +11,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CadastroPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  usuario: UsuarioModel = new UsuarioModel();
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private usuarioP: UsuarioProvider, private alert: AlertProvider) {
+  }  
+
+  async salvar(){
+    let result = await this.usuarioP.register(this.usuario);
+    if (result.success){
+      this.alert.showToast('Cadastro realizado com sucesso.','bottom');
+      this.navCtrl.setRoot('LoginPage');
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroPage');
+  cancelar(){
+    this.navCtrl.setRoot('LoginPage');
   }
-
 }

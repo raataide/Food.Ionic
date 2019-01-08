@@ -1,10 +1,10 @@
-<ion-content padding>
+<ion-content padding class="backImage">
 
   <div class="logo">
     <img src="/assets/imagens/icon-branco.png" alt="">
     <span>Food</span>
   </div>
-  <ion-list no-lines>
+  <ion-list no-lines class="list-transparent">
     <ion-item>
       <ion-input [(ngModel)]="form.email" type="text" placeholder="Email"></ion-input>
     </ion-item>
@@ -20,7 +20,7 @@
       </button>
     </ion-row>
     <ion-row>
-      <button ion-button block color="secondary" outline round>
+      <button ion-button block color="secondary" outline round (click)=cadastre()>
         Cadastrar-se
       </button>
     </ion-row>
