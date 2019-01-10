@@ -21,4 +21,13 @@ export class UsuarioProvider extends ProviderBase<UsuarioModel>{
     return this.http.post(`${this.url}/register`, usuario);
   }
 
+  static registerLogin(data){
+    localStorage.setItem(Config.storageKeys.token,data.token);
+    localStorage.setItem(Config.storageKeys.user,JSON.stringify(data.usuario));
+  }
+
+  static get IsLogado(){
+    return (localStorage.getItem(Config.storageKeys.token) != undefined);
+  }
+
 }

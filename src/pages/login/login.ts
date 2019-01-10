@@ -25,7 +25,8 @@ export class LoginPage {
   async login():Promise<void>{
     let result = await this.usuario.autenticar(this.form.email, this.form.senha);
     if (result.success){
-      console.log('logar');
+      UsuarioProvider.registerLogin(result.data);
+      this.navCtrl.setRoot('CategoriaPage');
     }
   }
 
