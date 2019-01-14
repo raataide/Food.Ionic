@@ -26,4 +26,8 @@ export class CategoriaPage {
     this.navCtrl.setRoot('TabsPage');
   }
 
+  gerenciarCategoria(){
+    this.navCtrl.push('AdmCategoriasPage');
+  }
+
 }

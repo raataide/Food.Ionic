@@ -1,6 +1,7 @@
+import { UsuarioProvider } from './../usuario/usuario';
 import { AlertProvider } from './../alert/alert';
 import { SpinnerProvider } from './../spinner/spinner';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NetworkProvider } from '../network/network';
 import { HttpResultModel } from '../../app/models/HttpResultModel';
@@ -14,10 +15,10 @@ export class HttpProvider {
 
   public get(url: string): Promise<HttpResultModel>{
     this.spinner.Show("Carregando os dados...");
-
+    let headers = this.createHeader();
     return new Promise((resolve) => {
       if (this.network.isOnline) {
-        this.http.get(url)
+        this.http.get(url, {headers : headers})
           .subscribe(res =>{
             this.spinner.Hide();
             resolve({success: true, data: res, err: undefined});
@@ -114,6 +115,24 @@ export class HttpProvider {
         resolve({success:true, data: [], err: undefined});
       }
     });
+  }
+
+
+  public createHeader(header? : HttpHeaders) : HttpHeaders{
+    if (!header) {
+      header = new HttpHeaders();
+    }
+
+
+    header = header.append('Content-Type', 'application/json');
+    header = header.append('Accept','application/json');
+
+    let token = UsuarioProvider.TokenAccess;
+    if (token){
+      header = header.append('x-access-token', token);
+    }
+
+    return header;
   }
 
 }
