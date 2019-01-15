@@ -25,7 +25,11 @@ ion-content.backImage {
     align-items: center;
 }
 
-.list-transparent .item {
+.item {
+    border-bottom: 1px solid #f2f2f2 !important;
+}
+
+.list-transparent .item {    
     background: transparent !important;        
 }
 .list.list-transparent .item-input:last-child{
