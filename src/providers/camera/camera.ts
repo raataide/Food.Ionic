@@ -1,5 +1,4 @@
 import { Platform } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -25,13 +24,38 @@ export class CameraProvider {
             saveToPhotoAlbum: false,
             correctOrientation: true
           };
+
+          this.camera.getPicture(options).then(
+            (imgData) =>{
+              let base64Image = `data:image/jpeg;base64,${imgData}`;
+              callback(base64Image);
+            },
+            (err) =>{
+              console.log('Problema ao capturar a foto',err);
+            });
           
         } catch (error) {
-          console.log('Problema ao tirar foto.', error)
+          console.log('Problema ao tirar foto.', error);
           
         }
       });
+    } else {
+      alert('funcionalidade disponível somente no device.');
     }
+  }
+
+  getPictureFromDevice(callback){
+    this._getPicture(this.camera.PictureSourceType.PHOTOLIBRARY, 
+      photo => {
+        callback(photo);
+    });
+  }
+
+  takePicture(callback){
+    this._getPicture(this.camera.PictureSourceType.CAMERA,
+      photo => {
+        callback(photo);
+      });
   }
 
 }
