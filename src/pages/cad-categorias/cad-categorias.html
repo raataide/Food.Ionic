@@ -29,10 +29,13 @@
   </ion-textarea>
 </ion-item>
 <ion-item text-center>
-  <button ion-button  clear>
+  <button ion-button  clear (click)="getPictureOptions()">
     <ion-icon name="camera" item-left></ion-icon>
     Selecionar foto
   </button>
+</ion-item>
+<ion-item>
+  <img *ngIf="categoria.foto" [src]="categoria.foto" alt="">
 </ion-item>
 </ion-list>
 

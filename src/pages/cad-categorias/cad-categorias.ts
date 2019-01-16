@@ -1,6 +1,7 @@
+import { CameraProvider } from './../../providers/camera/camera';
 import { CategoriaModel } from './../../app/models/categoriaModel';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, Platform } from 'ionic-angular';
 
 /**
  * Generated class for the CadCategoriasPage page.
@@ -16,7 +17,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CadCategoriasPage {
   categoria: CategoriaModel = new CategoriaModel();
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheet: ActionSheetController, public platform: Platform, private cameraProvider: CameraProvider) {
 
     let _categ = this.navParams.get('categoria');
     if (_categ){
@@ -25,6 +26,40 @@ export class CadCategoriasPage {
 
     }
     this.categoria = new CategoriaModel(); 
+  }
+
+  getPictureOptions(){
+    let ac = this.actionSheet.create({
+      title: 'Adicionar foto',
+      buttons: [
+        {
+          text: 'Tirar foto', 
+          handler: () =>{
+            this.cameraProvider.takePicture(photo => {
+              this.categoria.foto = photo;
+            })
+          },
+          icon: this.platform.is('ios') ? null : 'camera'
+        },
+        {
+          text: 'Pegar da galeria',
+          handler: () => {
+            this.cameraProvider.getPictureFromDevice(photo => {
+              this.categoria.foto = photo;
+            });
+          },
+          icon : this.platform.is('ios') ? null : 'images'
+        },
+        {
+          text: 'Cancelar',
+          role: 'destructive',
+          icon: this.platform.is('ios') ? null : 'close',
+          handler: () => {
+            //Cancela a ação
+          }
+        }
+      ]
+    }).present();
   }
   
 
