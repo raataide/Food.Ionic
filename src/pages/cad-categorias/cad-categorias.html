@@ -3,7 +3,7 @@
   <ion-navbar color="primary">
     <ion-title>Categoria</ion-title>
     <ion-buttons right>
-      <button ion-button clear>
+      <button ion-button clear (click)="salvar()">
         Salvar
       </button>
         
@@ -34,7 +34,7 @@
     Selecionar foto
   </button>
 </ion-item>
-<ion-item>
+<ion-item text-center>
   <img *ngIf="categoria.foto" [src]="categoria.foto" alt="">
 </ion-item>
 </ion-list>

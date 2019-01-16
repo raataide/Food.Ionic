@@ -1,3 +1,6 @@
+import { HttpResultModel } from './../../app/models/HttpResultModel';
+import { AlertProvider } from './../../providers/alert/alert';
+import { CategoriaProvider } from './../../providers/categoria/categoria';
 import { CameraProvider } from './../../providers/camera/camera';
 import { CategoriaModel } from './../../app/models/categoriaModel';
 import { Component } from '@angular/core';
@@ -17,7 +20,10 @@ import { IonicPage, NavController, NavParams, ActionSheetController, Platform } 
 })
 export class CadCategoriasPage {
   categoria: CategoriaModel = new CategoriaModel();
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheet: ActionSheetController, public platform: Platform, private cameraProvider: CameraProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public actionSheet: ActionSheetController, public platform: Platform,
+    private cameraProvider: CameraProvider, private categoriaP : CategoriaProvider,
+    private alert : AlertProvider) {
 
     let _categ = this.navParams.get('categoria');
     if (_categ){
@@ -60,6 +66,14 @@ export class CadCategoriasPage {
         }
       ]
     }).present();
+  }
+
+  async salvar() : Promise<void>{
+    let result = await this.categoriaP.post(this.categoria);
+    if (result.success){
+      this.alert.showToast('Cadastro realizado com sucesso.','bottom');
+      this.navCtrl.setRoot('CategoriaPage');
+    }
   }
   
 
