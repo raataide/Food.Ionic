@@ -37,9 +37,10 @@ export class HttpProvider {
 
   public post(url: string, model: any): Promise<HttpResultModel>{
     this.spinner.Show("Salvando informações.");
+    let headers = this.createHeader();
     return new Promise((resolve) => {
       if (this.network.isOnline){
-        this.http.post(url,model)
+        this.http.post(url,model, {headers: headers})
           .subscribe(res => {
             this.spinner.Hide();
             resolve({ success: true, data: res, err: undefined});
