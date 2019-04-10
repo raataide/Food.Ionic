@@ -13,6 +13,7 @@ export abstract class ProviderBase<T>{
     }
 
     post(model: T): Promise<HttpResultModel>{
+        console.log('teste');
         return this.http.post(this.url, model);
     }
 

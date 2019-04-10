@@ -16,13 +16,13 @@ export class CameraProvider {
       this.platform.ready().then(() => {
         try {
           let options:CameraOptions = {
-            quality: 70,
+            quality: 50,
             destinationType: this.camera.DestinationType.DATA_URL,
             sourceType: source,
             allowEdit: true,
             encodingType: this.camera.EncodingType.JPEG,
-            saveToPhotoAlbum: false,
-            correctOrientation: true
+            saveToPhotoAlbum: false
+            // correctOrientation: true
           };
 
           this.camera.getPicture(options).then(

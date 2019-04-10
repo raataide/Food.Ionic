@@ -54,9 +54,11 @@ export class HttpProvider {
               });
               this.alert.showAlert(err.error.message,msg);
             } else if (err.status == 404){
+              
               this.alert.showAlert('Atenção',err.error.message);
             }
             else {
+              console.table(err.status);
               this.alert.showToast('Não foi possível realizar o processamento da informação, verifique sua conexão e tente novamente','bottom');              
             }
             resolve({success: false, data: undefined, err: err});
